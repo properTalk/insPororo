@@ -6,6 +6,8 @@ from pororo.tasks import download_or_load
 from pororo.tasks.utils.base import PororoFactoryBase, PororoSimpleBase
 
 
+import logging
+
 class PororoOcrFactory(PororoFactoryBase):
     """
     Recognize optical characters in image file
@@ -88,21 +90,21 @@ class PororoOcrFactory(PororoFactoryBase):
                 f"misc/{self.detect_model}.pt",
                 self.config.lang,
             )
-            print(det_model_path);
+            logging.debug(det_model_path);
 
             rec_model_path = download_or_load(
                 f"misc/{self.config.n_model}.pt",
                 self.config.lang,
             )
 
-            print(rec_model_path);
+            logging.debug(rec_model_path);
 
             opt_fp = download_or_load(
                 f"misc/{self.ocr_opt}.txt",
                 self.config.lang,
             )
             
-            print(opt_fp);
+            logging.debug(opt_fp);
 
             model = brainocr.Reader(
                 self.config.lang,
